@@ -1,9 +1,9 @@
 import React from "react"
+import Layout from "../components/templates/Layout"
+import "../styles/styles.css"
 
-export default function Home() {
-  return (
-    <div style={{ margin: 0, padding: 0, boxSizing: "border-box" }}>
-      Hello world!
-    </div>
-  )
+const Home = () => {
+  return <Layout>Body</Layout>
 }
+
+export default Home

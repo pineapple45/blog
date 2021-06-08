@@ -7,13 +7,14 @@ const theme = createMuiTheme({
     secondary: pink,
   },
   typography: {
-    fontFamily: "merriweather",
-    h1: "montserrat",
-    h2: "montserrat",
-    h3: "montserrat",
-    h4: "montserrat",
-    h5: "montserrat",
-    h6: "montserrat",
+    fontFamily: "Montserrat, sans-serif",
+    // fontFamily: "Merriweather, serif",
+    // h1: "Montserrat, sans-serif",
+    // h2: "Montserrat, sans-serif",
+    // h3: "Montserrat, sans-serif",
+    // h4: "Montserrat, sans-serif",
+    // h5: "Montserrat, sans-serif",
+    // h6: "Montserrat, sans-serif",
   },
 })
 
