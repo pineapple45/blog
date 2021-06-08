@@ -1,9 +1,9 @@
 import React from "react"
-import Layout from "../components/templates/Layout"
 import "../styles/styles.css"
+import AllPosts from "../templates/allPosts"
 
 const Home = () => {
-  return <Layout>Body</Layout>
+  return <AllPosts />
 }
 
 export default Home

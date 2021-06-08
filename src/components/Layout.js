@@ -1,7 +1,7 @@
 import React from "react"
 import { Grid, makeStyles, createStyles } from "@material-ui/core"
-import NavBar from "../NavBar"
-import Footer from "../Footer"
+import NavBar from "./NavBar"
+import Footer from "./Footer"
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -17,13 +17,13 @@ const Layout = ({ children }) => {
   return (
     <div className={classes.root}>
       <Grid container justify="center">
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <NavBar />
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           {children}
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={8}>
           <Footer />
         </Grid>
       </Grid>
