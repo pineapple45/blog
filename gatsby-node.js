@@ -26,8 +26,6 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     return
   }
 
-  console.log(data.allMdx.edges)
-
   // create paginated posts
 
   const postsPerPage = 3
@@ -47,16 +45,16 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   })
 
   // create single post
-  //   data &&
-  //     data.allMdx.edges.forEach(edge => {
-  //       const slug = edge.node.frontmatter.slug
-  //       const id = edge.node.id
-  //       actions.createPages({
-  //         path: slug,
-  //         component: path.resolve(`src/components/templates/SinglePost.js`),
-  //         context: {
-  //           id,
-  //         },
-  //       })
-  //     })
+  data &&
+    data.allMdx.edges.forEach(edge => {
+      const slug = edge.node.frontmatter.slug
+      const id = edge.node.id
+      actions.createPage({
+        path: slug,
+        component: path.resolve(`src/templates/singlePost.js`),
+        context: {
+          id,
+        },
+      })
+    })
 }

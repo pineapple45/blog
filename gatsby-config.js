@@ -49,7 +49,7 @@ module.exports = {
       options: {
         fonts: [
           `Montserrat semi-bold`,
-          `Merriweather Sans regular`, // you can also specify font weights and styles
+          `Merriweather`, // you can also specify font weights and styles
           `roboto mono`,
         ],
         display: "swap",
@@ -57,4 +57,5 @@ module.exports = {
     },
     `gatsby-plugin-material-ui`,
   ],
+  pathPrefix: "/shadedvoxels",
 }

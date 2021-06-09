@@ -1,14 +1,20 @@
 import React from "react"
 import icon from "../images/icon.svg"
 import { Typography, Grid, Box } from "@material-ui/core"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 
 const NavBar = () => {
   return (
     <Box marginBottom="30px">
       <Grid container>
         <Grid item xs={8}>
-          <Box display="flex" alignItems="center">
+          <Box
+            display="flex"
+            alignItems="center"
+            onClick={() => {
+              navigate("/")
+            }}
+          >
             <img src={icon} width="50px" style={{ marginRight: "20px" }} />
             <Typography variant="h4" component="h4">
               ShadedVoxels

@@ -17,13 +17,13 @@ const Layout = ({ children }) => {
   return (
     <div className={classes.root}>
       <Grid container justify="center">
-        <Grid item xs={8}>
+        <Grid item xs={11} sm={10} md={8}>
           <NavBar />
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={11} sm={10} md={6}>
           {children}
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={11} sm={10} md={8}>
           <Footer />
         </Grid>
       </Grid>

@@ -31,6 +31,18 @@ const theme = createMuiTheme({
     subtitle1: {
       fontFamily: "Merriweather, serif",
     },
+    subtitle2: {
+      fontFamily: "Merriweather, serif",
+      fontWeight: "bold",
+      fontStyle: "italic",
+      color: "#FF5577",
+    },
+    body1: {
+      fontFamily: "Merriweather, sans-serif",
+    },
+    body2: {
+      fontFamily: "Merriweather, sans-serif",
+    },
   },
 })
 

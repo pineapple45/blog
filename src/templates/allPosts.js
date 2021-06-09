@@ -1,10 +1,20 @@
-import React from "react"
-import { graphql, Link } from "gatsby"
-import { Box, Card, CardContent, Typography } from "@material-ui/core"
-import { Pagination, PaginationItem } from "@material-ui/lab"
+import React, { useState } from "react"
+import { graphql, Link, navigate } from "gatsby"
+import {
+  Button,
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Grid,
+  Box,
+} from "@material-ui/core"
+import { Pagination } from "@material-ui/lab"
+import Image from "../components/Image"
 import Layout from "../components/Layout"
 
 const AllPosts = ({ pageContext, data }) => {
+  const [page, setPage] = useState(1)
   const edges = data.allMdx.edges
   const { currentPage, numPages } = pageContext
   const isFirst = currentPage === 1
@@ -12,41 +22,85 @@ const AllPosts = ({ pageContext, data }) => {
   const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
   const nextPage = (currentPage + 1).toString()
 
+  const viewPost = slug => {
+    navigate(`/${slug}`)
+  }
+
+  const paginate = (event, n) => {
+    setPage(n - 1)
+    navigate(`/${n - 1 === 0 ? "" : n}`)
+  }
+
   return (
     <Layout>
       {edges.map(({ node }) => {
         const title = node.frontmatter.title || node.frontmatter.slug
         const excerpt = node.frontmatter.excerpt
-        const featureImage = node.frontmatter.featureImage
+        const featureImage = node.frontmatter.featureImage.childImageSharp.fluid
+        const date = node.frontmatter.date
         return (
-          <Box key={node.frontmatter.slug} padding="10px">
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="h5">
+          <Card key={node.frontmatter.slug} style={{ marginBottom: "20px" }}>
+            <Grid container style={{ padding: "10px" }}>
+              <Grid item xs={12}>
+                <Typography variant="h6" component="h6">
                   {title}
                 </Typography>
-                <Typography variant="subtitle1" component="p">
-                  {excerpt}
+                <Typography
+                  variant="subtitle2"
+                  component="p"
+                  style={{ textAlign: "right" }}
+                >
+                  Posted on: {date}
                 </Typography>
-              </CardContent>
-            </Card>
-          </Box>
+              </Grid>
+              <Grid item xs={12} md={3}>
+                <CardMedia>
+                  <Image fluid={featureImage} />
+                </CardMedia>
+              </Grid>
+              <Grid item xs={12} md={9}>
+                <CardContent>
+                  <Typography variant="subtitle1" component="p">
+                    {excerpt}
+                  </Typography>
+                  <br />
+                  <Button
+                    onClick={() => viewPost(node.frontmatter.slug)}
+                    variant="outlined"
+                    color="secondary"
+                    size="small"
+                  >
+                    View
+                  </Button>
+                </CardContent>
+              </Grid>
+            </Grid>
+          </Card>
         )
       })}
-      <hr />
-      <div>
+      <br />
+      <Box
+        display="flex"
+        justifyContent="center"
+        flexDirection="column"
+        alignItems="center"
+      >
         {!isFirst && (
-          <Link to={prevPage} rel="prev">
-            ← Previous Page
+          <Link to={prevPage} rel="prev" style={{ textDecoration: "none" }}>
+            <Typography variant="h6" component="h6">
+              ← Previous Page
+            </Typography>
           </Link>
         )}
         {!isLast && (
-          <Link to={nextPage} rel="next">
-            Next Page →
+          <Link to={nextPage} rel="next" style={{ textDecoration: "none" }}>
+            <Typography variant="h6" component="h6">
+              Next Page →
+            </Typography>
           </Link>
         )}
         <br />
-        {Array.from({ length: numPages }, (_, i) => (
+        {/* {Array.from({ length: numPages }, (_, i) => (
           <Link
             key={`pagination-number${i + 1}`}
             to={`/${i === 0 ? "" : i + 1}`}
@@ -54,7 +108,15 @@ const AllPosts = ({ pageContext, data }) => {
             {i + 1}
           </Link>
         ))}
-      </div>
+        <br /> */}
+        <Pagination
+          variant="outlined"
+          shape="rounded"
+          count={numPages}
+          page={page}
+          onChange={paginate}
+        />
+      </Box>
     </Layout>
   )
 }
@@ -73,6 +135,13 @@ export const allPostsQuery = graphql`
             excerpt
             slug
             title
+            featureImage {
+              childImageSharp {
+                fluid {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
           }
         }
       }
