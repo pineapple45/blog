@@ -1,6 +1,7 @@
 import React from "react"
 import Highlight, { defaultProps } from "prism-react-renderer"
-import theme from "prism-react-renderer/themes/vsDark"
+import theme from "prism-react-renderer/themes/nightOwl"
+import "../styles/language-tabs.css"
 
 const Code = ({ codeString, language, ...props }) => {
   return (
@@ -12,6 +13,7 @@ const Code = ({ codeString, language, ...props }) => {
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div className="gatsby-highlight" data-language={language}>
+          {language && <span className="language">{language}</span>}
           <pre className={className} style={style}>
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>

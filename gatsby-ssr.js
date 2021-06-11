@@ -1,9 +1,11 @@
 import React from "react"
-import { ThemeProvider, Table } from "@material-ui/core"
+import { ThemeProvider } from "@material-ui/core"
 import { MDXProvider } from "@mdx-js/react"
 import { preToCodeBlock } from "mdx-utils"
 import theme from "./src/themes/theme"
 import Code from "./src/components/Code"
+import Table from "./src/components/Table"
+import Quotes from "./src/components/Quotes"
 import "./language-tabs.css"
 
 const components = {
@@ -17,6 +19,7 @@ const components = {
     return <pre {...props} />
   },
   wrapper: ({ children }) => <>{children}</>,
+  blockquote: Quotes,
 }
 
 export const wrapRootElement = ({ element }) => (

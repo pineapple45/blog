@@ -27,15 +27,15 @@ const Footer = () => {
           width="30px"
           style={{ padding: "0 5px" }}
         />
-        <Icon
+        {/* <Icon
           icon={slackSquareFilled}
           height="30px"
           width="30px"
           style={{ padding: "0 5px" }}
-        />
+        /> */}
       </Box>
       <br />
-      <Typography variant="h6" component="p">
+      <Typography variant="subtitle1" component="p">
         &copy; Copyright ShadedVoxels 2021
       </Typography>
     </Box>

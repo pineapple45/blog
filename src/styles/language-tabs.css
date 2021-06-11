@@ -3,30 +3,8 @@
   -webkit-overflow-scrolling: touch;
 }
 .gatsby-highlight pre[class*="language-"] {
-  background: black;
-  border-radius: 0.25rem;
-  color: white;
-  font-size: 15px;
-  letter-spacing: 0.025rem;
-  padding: 0.5rem;
-  margin-top: 30px;
   -webkit-overflow-scrolling: touch;
 }
-
-.language {
-  text-align: right;
-  font-size: 11px;
-  font-style: bold;
-  color: #1ef7d3;
-  background-color: rgb(25, 30, 61);
-  padding: 3px 6px;
-  border-radius: 5px;
-  position: absolute;
-  right: 1px;
-  top: -23px;
-  letter-spacing: 0.05rem;
-}
-/* 
 .gatsby-highlight pre[class*="language-"]::before {
   background: black;
   border-radius: 0 0 0.25rem 0.25rem;
@@ -44,4 +22,4 @@
   content: "js";
   background: #f7df1e;
   color: black;
-} */
+}

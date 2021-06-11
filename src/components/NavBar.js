@@ -7,7 +7,7 @@ const NavBar = () => {
   return (
     <Box marginBottom="30px">
       <Grid container>
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           <Box
             display="flex"
             alignItems="center"
@@ -16,13 +16,13 @@ const NavBar = () => {
             }}
           >
             <img src={icon} width="50px" style={{ marginRight: "20px" }} />
-            <Typography variant="h4" component="h4">
+            <Typography variant="h5" component="h5">
               ShadedVoxels
             </Typography>
           </Box>
         </Grid>
-        <Grid item xs={4}>
-          <Box display="flex" justifyContent="flex-end">
+        <Grid item xs={12} md={4}>
+          <Box display="flex" justifyContent="center">
             <Typography
               variant="h6"
               component="h6"

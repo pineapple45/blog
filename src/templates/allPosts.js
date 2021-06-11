@@ -52,6 +52,7 @@ const AllPosts = ({ pageContext, data }) => {
                 >
                   Posted on: {date}
                 </Typography>
+                <br />
               </Grid>
               <Grid item xs={12} md={3}>
                 <CardMedia>

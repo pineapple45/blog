@@ -17,12 +17,17 @@ const singlePost = ({ pageContext, data }) => {
       <Typography variant="h6" component="h6">
         {title}
       </Typography>
-      <Typography variant="h6" component="p">
+      <Typography variant="subtitle1" component="p">
         {excerpt}
       </Typography>
-      <Typography variant="h6" component="p">
-        {date}
+      <Typography
+        variant="subtitle2"
+        component="h6"
+        style={{ textAlign: "right" }}
+      >
+        posted on: {date}
       </Typography>
+      <br />
       <Image fluid={featureImage} />
       <Typography variant="body1" component="div">
         <MDXRenderer>{body}</MDXRenderer>
