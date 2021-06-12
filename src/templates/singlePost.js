@@ -25,7 +25,7 @@ const singlePost = ({ pageContext, data }) => {
         component="h6"
         style={{ textAlign: "right" }}
       >
-        posted on: {date}
+        Posted on: {date}
       </Typography>
       <br />
       <Image fluid={featureImage} />
