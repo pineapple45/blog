@@ -66,5 +66,5 @@ module.exports = {
     },
     `gatsby-plugin-material-ui`,
   ],
-  pathPrefix: "/shaded-voxels",
+  // pathPrefix: "/shaded-voxels",
 }
