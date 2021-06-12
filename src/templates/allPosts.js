@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { graphql, Link, navigate } from "gatsby"
+
 import {
   Button,
   Card,
@@ -14,31 +15,25 @@ import Image from "../components/Image"
 import Layout from "../components/Layout"
 import Seo from "../components/Seo"
 
-const AllPosts = ({ pageContext, data }) => {
-  const [loading, setLoading] = useState(true)
-  const edges = data && data.allMdx.edges
-  const { currentPage, numPages } = pageContext === undefined ? {} : pageContext
+const allPosts = ({ pageContext, data }) => {
+  console.log("pageContext", pageContext)
+  console.log("data", data)
 
+  const edges = data.allMdx.edges
+  const { currentPage, numPages } = pageContext
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
   const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
   const nextPage = (currentPage + 1).toString()
+  console.log(edges)
 
   const viewPost = slug => {
-    navigate(`/${slug}`)
+    navigate(`/posts/${slug}`)
   }
 
   const paginate = (event, n) => {
-    navigate(`/${n - 1 === 0 ? "" : n}`)
+    navigate(`/posts/${n - 1 === 0 ? "" : n}`)
   }
-
-  useEffect(() => {
-    if (data || pageContext) {
-      setLoading(false)
-    }
-  }, [data, pageContext])
-
-  if (loading) return <Layout>Loading Posts...</Layout>
 
   return (
     <Layout>
@@ -132,8 +127,8 @@ const AllPosts = ({ pageContext, data }) => {
   )
 }
 
-export const allPostsQuery = graphql`
-  query allPostsQuery($limit: Int!, $skip: Int!) {
+export const pageQuery = graphql`
+  query AllPostsQuery($limit: Int!, $skip: Int!) {
     allMdx(
       sort: { fields: frontmatter___date, order: DESC }
       limit: $limit
@@ -160,4 +155,4 @@ export const allPostsQuery = graphql`
   }
 `
 
-export default AllPosts
+export default allPosts
