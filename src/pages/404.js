@@ -46,7 +46,7 @@ const Page404 = () => {
             Page not found :(
           </Typography>
           <Typography variant="h6" component="h6">
-            <Link to="/posts">Go to home</Link>
+            <Link to="/">Go to home</Link>
           </Typography>
           <br />
           <Typography

@@ -24,11 +24,11 @@ const allPosts = ({ pageContext, data }) => {
   const nextPage = (currentPage + 1).toString()
 
   const viewPost = slug => {
-    navigate(`/posts/${slug}`)
+    navigate(`/${slug}`)
   }
 
   const paginate = (event, n) => {
-    navigate(`/posts/${n - 1 === 0 ? "" : n}`)
+    navigate(`/${n - 1 === 0 ? "" : n}`)
   }
 
   return (

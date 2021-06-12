@@ -23,7 +23,7 @@ const NavBar = () => {
             alignItems="center"
             className={classes.siteTitle}
             onClick={() => {
-              navigate("/posts")
+              navigate("/")
             }}
           >
             <img src={icon} width="50px" style={{ marginRight: "20px" }} />
