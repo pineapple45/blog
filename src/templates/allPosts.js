@@ -17,7 +17,8 @@ import Seo from "../components/Seo"
 const AllPosts = ({ pageContext, data }) => {
   const [loading, setLoading] = useState(true)
   const edges = data && data.allMdx.edges
-  const { currentPage, numPages } = pageContext && pageContext
+  const { currentPage, numPages } = pageContext === undefined ? {} : pageContext
+
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
   const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
@@ -32,7 +33,7 @@ const AllPosts = ({ pageContext, data }) => {
   }
 
   useEffect(() => {
-    if (data && pageContext) {
+    if (data || pageContext) {
       setLoading(false)
     }
   }, [data, pageContext])

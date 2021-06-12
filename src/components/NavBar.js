@@ -1,9 +1,19 @@
 import React from "react"
 import icon from "../images/icon.svg"
-import { Typography, Grid, Box } from "@material-ui/core"
+import { Typography, Grid, Box, makeStyles } from "@material-ui/core"
 import { Link, navigate } from "gatsby"
 
+const useStyles = makeStyles(theme => ({
+  siteTitle: {
+    [theme.breakpoints.down("md")]: {
+      justifyContent: "center",
+    },
+  },
+}))
+
 const NavBar = () => {
+  const classes = useStyles()
+
   return (
     <Box marginBottom="30px">
       <Grid container>
@@ -11,6 +21,7 @@ const NavBar = () => {
           <Box
             display="flex"
             alignItems="center"
+            className={classes.siteTitle}
             onClick={() => {
               navigate("/")
             }}
