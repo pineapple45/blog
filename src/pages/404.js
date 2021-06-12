@@ -38,6 +38,13 @@ const Page404 = () => {
           <Typography variant="h2" component="h2">
             404
           </Typography>
+          <Typography
+            variant="subtitle1"
+            component="subtitle1"
+            style={{ fontSize: "15px" }}
+          >
+            Page not found :(
+          </Typography>
           <Typography variant="h6" component="h6">
             <Link to="/">Go to home</Link>
           </Typography>

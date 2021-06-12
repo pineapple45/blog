@@ -1,4 +1,13 @@
 module.exports = {
+  siteMetadata: {
+    title: "ShadedVoxels Blog",
+    description:
+      "Blog for topics on Machine Learning, Deep Learning , web developement and much more..",
+    url: "https://github.com/pineapple45",
+    image: "./default.jpg",
+    twitterUsername: "@Anmol_gomra",
+    author: "pineapple45",
+  },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,

@@ -4,6 +4,7 @@ import { Box, Typography } from "@material-ui/core"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "../components/Image"
 import Layout from "../components/Layout"
+import Seo from "../components/Seo"
 
 const singlePost = ({ pageContext, data }) => {
   const featureImage = data.mdx.frontmatter.featureImage.childImageSharp.fluid
@@ -12,8 +13,11 @@ const singlePost = ({ pageContext, data }) => {
   const date = data.mdx.frontmatter.date
   const body = data.mdx.body
 
+  const seoImage = data.mdx.frontmatter.featureImage.publicURL
+
   return (
     <Layout>
+      <Seo title={title} image={seoImage} description={excerpt} />
       <Typography variant="h6" component="h6">
         {title}
       </Typography>
@@ -46,6 +50,7 @@ export const query = graphql`
         slug
         title
         featureImage {
+          publicURL
           childImageSharp {
             fluid {
               ...GatsbyImageSharpFluid

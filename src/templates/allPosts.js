@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { graphql, Link, navigate } from "gatsby"
 import {
   Button,
@@ -12,11 +12,12 @@ import {
 import { Pagination } from "@material-ui/lab"
 import Image from "../components/Image"
 import Layout from "../components/Layout"
+import Seo from "../components/Seo"
 
 const AllPosts = ({ pageContext, data }) => {
-  const [page, setPage] = useState(1)
-  const edges = data.allMdx.edges
-  const { currentPage, numPages } = pageContext
+  const [loading, setLoading] = useState(true)
+  const edges = data && data.allMdx.edges
+  const { currentPage, numPages } = pageContext && pageContext
   const isFirst = currentPage === 1
   const isLast = currentPage === numPages
   const prevPage = currentPage - 1 === 1 ? "/" : (currentPage - 1).toString()
@@ -27,12 +28,20 @@ const AllPosts = ({ pageContext, data }) => {
   }
 
   const paginate = (event, n) => {
-    setPage(n - 1)
     navigate(`/${n - 1 === 0 ? "" : n}`)
   }
 
+  useEffect(() => {
+    if (data && pageContext) {
+      setLoading(false)
+    }
+  }, [data, pageContext])
+
+  if (loading) return <Layout>Loading Posts...</Layout>
+
   return (
     <Layout>
+      <Seo />
       {edges.map(({ node }) => {
         const title = node.frontmatter.title || node.frontmatter.slug
         const excerpt = node.frontmatter.excerpt
@@ -114,7 +123,7 @@ const AllPosts = ({ pageContext, data }) => {
           variant="outlined"
           shape="rounded"
           count={numPages}
-          page={page}
+          page={currentPage}
           onChange={paginate}
         />
       </Box>
