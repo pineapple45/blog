@@ -5,7 +5,9 @@ import "../styles/table.css"
 const Table = ({ children }) => {
   return (
     <TableContainer component={Paper} style={{ padding: "5px" }}>
-      <MuiTable aria-label="simple table">{children}</MuiTable>
+      <MuiTable aria-label="simple table" style={{ minWidth: "650px" }}>
+        {children}
+      </MuiTable>
     </TableContainer>
   )
 }
