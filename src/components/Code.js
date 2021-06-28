@@ -34,18 +34,16 @@ const Code = ({ codeString, language, ...props }) => {
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div className="gatsby-highlight" data-language={language}>
-          {language && <span className="language">{language}</span>}
           <pre className={className} style={style}>
+            {language && <span className="language">{language}</span>}
             <Button
               variant="contained"
-              // size="small"
               onClick={() => copyCodeHandler(codeString)}
               color="secondary"
               style={{
                 position: "absolute",
                 top: "5px",
                 right: "5px",
-                // textTransform: "lowercase",
                 fontFamily: "sans-serif",
                 padding: "0px",
                 fontSize: "10px",

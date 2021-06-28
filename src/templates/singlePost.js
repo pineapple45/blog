@@ -5,6 +5,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "../components/Image"
 import Layout from "../components/Layout"
 import Seo from "../components/Seo"
+import Toc from "../components/Toc"
 
 const singlePost = ({ pageContext, data }) => {
   const featureImage = data.mdx.frontmatter.featureImage.childImageSharp.fluid
@@ -12,6 +13,7 @@ const singlePost = ({ pageContext, data }) => {
   const excerpt = data.mdx.frontmatter.excerpt
   const date = data.mdx.frontmatter.date
   const body = data.mdx.body
+  const tableOfContents = data.mdx.tableOfContents
 
   const seoImage = data.mdx.frontmatter.featureImage.publicURL
 
@@ -33,6 +35,8 @@ const singlePost = ({ pageContext, data }) => {
       </Typography>
       <br />
       <Image fluid={featureImage} />
+      <br />
+      <Toc tableOfContents={tableOfContents} />
       <Typography variant="body1" component="div">
         <MDXRenderer>{body}</MDXRenderer>
       </Typography>
@@ -44,6 +48,11 @@ export const pageQuery = graphql`
   query SinglePostQuery($id: String!) {
     mdx(id: { eq: $id }) {
       body
+      tableOfContents
+      headings {
+        depth
+        value
+      }
       frontmatter {
         date
         excerpt

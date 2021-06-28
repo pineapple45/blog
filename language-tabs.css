@@ -8,8 +8,8 @@
   color: white;
   font-size: 15px;
   letter-spacing: 0.025rem;
-  padding: 0.5rem;
-  margin-top: 30px;
+  padding: 25px 0.5rem 0.5rem;
+  /* margin-top: 40px; */
   -webkit-overflow-scrolling: touch;
 }
 
@@ -17,13 +17,13 @@
   text-align: right;
   font-size: 11px;
   font-style: bold;
-  color: #1ef7d3;
-  background-color: rgb(25, 30, 61);
-  padding: 3px 6px;
+  color: #c8ff00;
+  /* background-color: rgb(255, 221, 0); */
+  padding: 0px 6px;
   border-radius: 5px;
   position: absolute;
-  right: 1px;
-  top: -23px;
+  bottom: 5px;
+  right: 2px;
   letter-spacing: 0.05rem;
 }
 /* 
