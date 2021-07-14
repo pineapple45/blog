@@ -25,6 +25,10 @@ const Seo = ({ description, keywords, title, image, url, author }) => {
             title={title}
             meta={[
               {
+                name: `google-site-verification`,
+                content: "71cWx1ID2lznPcYeaPWglNrACVAeqXAlXleUcm4_5HE",
+              },
+              {
                 name: `description`,
                 content: metaDescription,
               },
