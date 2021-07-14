@@ -1,7 +1,6 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
-import { Box } from "@material-ui/core"
 const Image = ({ fluid }) => {
   const data = useStaticQuery(graphql`
     query {

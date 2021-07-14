@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import theme from "prism-react-renderer/themes/nightOwl"
 import "../styles/language-tabs.css"
-import { Button, Typography } from "@material-ui/core"
+import { Button } from "@material-ui/core"
 
 const Code = ({ codeString, language, ...props }) => {
   const [isCopied, setIsCopied] = useState(false)
@@ -35,7 +35,11 @@ const Code = ({ codeString, language, ...props }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <div className="gatsby-highlight" data-language={language}>
           <pre className={className} style={style}>
-            {language && <span className="language">{language}</span>}
+            {language && (
+              <span className="language" style={{ bottom: "20px" }}>
+                {language}
+              </span>
+            )}
             <Button
               variant="contained"
               onClick={() => copyCodeHandler(codeString)}

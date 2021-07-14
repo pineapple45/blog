@@ -21,18 +21,18 @@ const theme = createMuiTheme({
       fontFamily: "Montserrat, sans-serif",
     },
     h5: {
-      fontFamily: "Merriweather, serif",
-      fontStyle: "italic",
+      fontFamily: "Montserrat, sans-serif",
+      // fontStyle: "italic",
       fontWeight: "bold",
     },
     h6: {
-      fontFamily: "Merriweather, serif",
-      fontStyle: "italic",
-      // fontWeight: "bold",
+      fontFamily: "Montserrat, sans-serif",
+      // fontStyle: "italic",
+      fontWeight: "bold",
     },
     subtitle1: {
       fontFamily: "Merriweather, serif",
-      fontStyle: "italic",
+      // fontStyle: "italic",
     },
     subtitle2: {
       fontFamily: "Merriweather, serif",

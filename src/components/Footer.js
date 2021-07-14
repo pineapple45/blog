@@ -1,8 +1,8 @@
 import React from "react"
-import { Box, Typography } from "@material-ui/core"
+import { Box, Link, Typography } from "@material-ui/core"
 import { Icon, InlineIcon } from "@iconify/react"
 import discordIcon from "@iconify-icons/bi/discord"
-import slackSquareFilled from "@iconify-icons/ant-design/slack-square-filled"
+import twitterIcon from "@iconify-icons/bi/twitter"
 import githubFill from "@iconify-icons/akar-icons/github-fill"
 
 const Footer = () => {
@@ -15,24 +15,31 @@ const Footer = () => {
       flexDirection="column"
     >
       <Box>
-        <Icon
-          icon={githubFill}
-          height="30px"
-          width="30px"
-          style={{ padding: "0 5px" }}
-        />
-        <Icon
-          icon={discordIcon}
-          height="30px"
-          width="30px"
-          style={{ padding: "0 5px" }}
-        />
-        {/* <Icon
-          icon={slackSquareFilled}
-          height="30px"
-          width="30px"
-          style={{ padding: "0 5px" }}
-        /> */}
+        <Link href="https://github.com/pineapple45">
+          <Icon
+            icon={githubFill}
+            height="30px"
+            width="30px"
+            style={{ padding: "0 5px" }}
+          />
+        </Link>
+
+        <Link href="https://discord.gg/cDyttEtkcJ">
+          <Icon
+            icon={discordIcon}
+            height="30px"
+            width="30px"
+            style={{ padding: "0 5px" }}
+          />
+        </Link>
+        <Link href="https://twitter.com/Anmol_gomra">
+          <Icon
+            icon={twitterIcon}
+            height="30px"
+            width="30px"
+            style={{ padding: "0 5px" }}
+          />{" "}
+        </Link>
       </Box>
       <br />
       <Typography variant="subtitle1" component="p">

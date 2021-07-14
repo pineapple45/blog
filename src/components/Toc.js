@@ -1,14 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
-import {
-  Typography,
-  makeStyles,
-  createStyles,
-  Box,
-  Paper,
-  List,
-  ListItem,
-} from "@material-ui/core"
+import { Typography, makeStyles, createStyles, Box } from "@material-ui/core"
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -16,23 +8,34 @@ const useStyles = makeStyles(theme =>
       [theme.breakpoints.down("sm")]: {
         // listStyle: "none",
       },
-      //   [theme.breakpoints.up("md")]: {
-      //     position: "fixed",
-      //     right: "10rem",
-      //     top: "30vh",
-      //     listStyle: "none",
-      //   },
+      // [theme.breakpoints.up("md")]: {
+      //   position: "fixed",
+      //   right: "5rem",
+      //   top: "30vh",
+      //   width: "15rem",
+      // },
       [theme.breakpoints.up("lg")]: {
         position: "fixed",
+        right: "5rem",
+        top: "32vh",
+        width: "15rem",
+        maxWidth: "15rem",
+
+        // listStyle: "none",
+      },
+      [theme.breakpoints.up("xl")]: {
+        position: "fixed",
         right: "10rem",
-        top: "30vh",
+        top: "32vh",
+        width: "15rem",
+        maxWidth: "15rem",
         // listStyle: "none",
       },
     },
     list: {
       // listStyle: "none",
       marginLeft: 0,
-      maxHeight: "300px",
+      maxHeight: "350px",
       overflowY: "auto",
     },
     listItem: {
@@ -59,7 +62,7 @@ export default ({ tableOfContents }) => {
       <ol className={classes.list}>
         {tableOfContents.items.map((content, index) => (
           <li className={classes.listItems} key={index} disableGutters>
-            <Typography component="h4" style={{ padding: 0 }}>
+            <Typography component="h4" style={{ padding: "5px" }}>
               <Link className={classes.link} to={content.url}>
                 {content.title}
               </Link>

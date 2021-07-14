@@ -3,6 +3,7 @@
   -webkit-overflow-scrolling: touch;
 }
 .gatsby-highlight pre[class*="language-"] {
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
 .gatsby-highlight pre[class*="language-"]::before {
