@@ -3,7 +3,7 @@ module.exports = {
     title: "ShadedVoxels Blog",
     description:
       "Blog for topics on Machine Learning, Deep Learning , web developement and much more..",
-    url: "https://github.com/pineapple45",
+    siteUrl: "https://pineapple45.github.io/blog",
     image: "./default.jpg",
     twitterUsername: "@Anmol_gomra",
     author: "pineapple45",
@@ -101,6 +101,7 @@ module.exports = {
     },
     `gatsby-plugin-material-ui`,
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sitemap`,
   ],
   pathPrefix: "/blog",
 }
