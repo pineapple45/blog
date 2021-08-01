@@ -6,25 +6,24 @@ featureImage: feature.jpg
 excerpt: Initiating the project structure and defining the app architecture.
 ---
 
-import Video from "../../components/Video.js"
-import Gif from "../../components/Gif.js"
-import Checkpoint from "../../components/Checkpoint.js"
-import Note from "../../components/Note.js"
-
 ### Starting points
 
 The project is divided in 3 parts. If you already have a project setup and would like to
 only see how custom directives can be implemented using express-graphql, jump to
 part 3 which can be found below:
 
-Final code: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/schema-splitting-part-3)
+📍 Final code: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/main)
+
+🌐 Live preview: [Link](https://pineapple45.github.io/custom-directives-with-express-graphql/)
 
 - Part-2: [Link](/custom-directives-with-express-graphql-part-2)
 - Part-3: [Link](/custom-directives-with-express-graphql-part-3)
 
-The first 2 parts are just building blocks where the whole project setup is done.
-The app that we are working on is kind of like instagram ( _i call it photos!_ ). The functionality of the app includes
-the following:
+The first 2 parts are just building blocks where the whole project setup is done. I initially thought to directly show how to implement custom-directives but then I realized it would be much better if I create a sample project along with it as it depicts the use-case in a much better and understandable way. To be honest, first 2 parts are not going to be much fun since these parts only involve testing and getting the base of the project completed . I will try to get these done as fast as I can.
+
+👉 Note In all of these parts I will not spend any time on the frontend since this posts mostly deal with the backend part. I will create a frontend in part 3 but will breeze through that part rather quickly.
+
+The app that we are working on is kind of like instagram ( i call it _photos!_ ). The functionality of the app includes the following:
 
 1. Create posts
 2. Each post can be liked
@@ -49,6 +48,8 @@ authorised.
 2. **@hasAuthorisation(role: Role)**
 3. **@upperCase** This simple custom directive will just convert
    headings to uppercase when queried from frontend.
+
+_@hasAuthorisation_ also implements the functionality of _@isAuthenticated_ but adds a check to see if correct user is authorized for the request!
 
 ### Initialising the server
 
@@ -83,7 +84,7 @@ The dependencies to be used are as follows:
     "typescript": "^4.3.4"
 ```
 
-<Note note="Please not the version number for 'graphql' package and to specifically use 14.6.0, as I was having a couple of problems with newer version of 'graphql' package." />
+👉 Please note the version number for 'graphql' package and to specifically use 14.6.0, as I was having a couple of problems with newer version of 'graphql' package.
 
 ```
 yarn init
@@ -135,7 +136,7 @@ yarn start
 npm start
 ```
 
-The command above executes _tsc --watch_ internally ans spins up the typescript compiler.
+The command above executes _tsc --watch_ which internally spins up the typescript compiler.
 You should see the _dist_ folder being generated as specified in tsconfig.json
 The next command is
 
@@ -147,7 +148,30 @@ npm run dev
 
 This run nodemon dist/index.js and keeps the server running and tracks all the changes on the go.
 
-<Note note="I usually prefer to run 'start' and 'dev' simultaneously on 2 seperate terminals. Its just my preference. You can probabily combine these 2 commands and run them in one single terminal also." />
+👉 Please note that I am using 2 seperate terminals to run the above commands i.e **_npm run dev_ & _npm run start_** .
+
+```
+  "scripts": {
+    "start": "tsc --watch",
+    "compile": "tsc && node dist/index.js",
+    "dev": "nodemon dist/index.js",
+    "dev:tsc": "tsc --watch --preserveWatchOutput",
+    "build": "rimraf ./dist && tsc -p .",
+    "clean": "rimraf ./dist"
+  },
+```
+
+If you want to run both in the same terminal, do the following changes to your scripts property in package.json and then in terminal to start the project, just do **_npm run dev_**
+
+```
+"scripts": {
+   "start": "tsc --watch",
+   "compile": "tsc && node dist/index.js",
+   "dev": "nodemon --watch src/ --exec \"npm run compile\" --verbose -e ts",
+   "build": "rimraf ./dist && tsc -p .",
+   "clean": "rimraf ./dist"
+ },
+```
 
 ### Connecting to monogdb and adding mongoose schema
 
@@ -182,8 +206,7 @@ mongoose
 
 ### Adding environment variables
 
-The environment variables file will look somthing like this. While moving to production,
-you can simply update these here and code will update automagically.
+The environment variables file will look something like this. While moving to production, you can simply update these here and code will update automagically!
 
 ```env
 NODE_ENV="developement"
@@ -192,20 +215,19 @@ MONGO_URI="mongodb+srv://test:<password>@cluster0.kzxvi.mongodb.net/myFirstDatab
 ```
 
 After starting the project, the output will look something like this:
-yarn dev
-![yarn-dev](./1.png)
-yarn start
-![yarn-start](./2.png)
 
-<Checkpoint
-  checkpoint="The code till now can be found here"
-  repoLink="https://github.com/pineapple45/custom-directives-with-express-graphql/tree/initial-files-and-folders-part-1"
-/>
+1. for yarn dev
+   ![1.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1627562047498/lfYCgtBor.png)
+
+2. for yarn start
+   ![2.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1627562088002/1fp8hQB7s.png)
+
+📌 The code till now can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/initial-files-and-folders-part-1)
 
 ### Adding mongoose schema
 
 After connecting to database. Now it's time for creating mongoose models that will represent how our data will be saved in database.
-For this I will create the models folder inside src directory and create 4 models:
+For this I will create the models folder inside _src_ directory and create 4 models:
 
 - User
 - Post
@@ -361,10 +383,13 @@ const LikeSchema = new Schema<LikeType>({
 export default model("Like", LikeSchema)
 ```
 
-<Checkpoint
-  checkpoint="The code till now can be found here"
-  repoLink="https://github.com/pineapple45/custom-directives-with-express-graphql/tree/mongodb-schema-setup-part-1/"
-/>
+📌 The code till now can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/mongodb-schema-setup-part-1/)
+
+👉 Note: In the final code repository there is a client-redux folder which also consists of frontend with client graphql implementation using redux. Although , it is important to note that, functionalities such live as refetching of queries , implementaion of custom fetch and error policies is not implemented in this project.
+
+📍 Final code: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/main)
+
+🌐 Live preview: [Link](https://pineapple45.github.io/custom-directives-with-express-graphql/)
 
 In the next part we will configure graphql and instantiate the graphql schema along
 with its resolvers. [Part-2 ->](/custom-directives-with-express-graphql-part-2)

@@ -6,13 +6,9 @@ featureImage: feature.jpg
 excerpt: Adding custom directives using express-graphql and graphql-directive.
 ---
 
-import Video from "../../components/Video.js"
-import Gif from "../../components/Gif.js"
-import Checkpoint from "../../components/Checkpoint.js"
-import Note from "../../components/Note.js"
+Till now we have the application structure fully setup. If you are directly coming over here to part 3 , I am assuming you have the base structure of your app completed, which includes setting up the express-graphql server , graphql-schema and corrosponding resolvers. If you haven't I highly recommend checking out part-1 and part-2. Otherwise, let's start!
 
-Till now we have the application structure fully setup.
-Final code can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/schema-splitting-part-3)
+📍 Final code: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/main)
 
 There are only 2 main things left:
 
@@ -23,31 +19,22 @@ We will be using JWT authentication method for loging in the user.
 
 ### Choosing a wise logic for authentication & authorisation
 
-If you have worked with REST API, it is easier to work implement both of the functionalities. We can just
-create a middleware and apply the same middleware to each of the routes(_get_ requests) that we either want
-to authenticate or on top of that authorize. But how will we implement that in graphql ? We have only a single
-route 'http://whatever_host_url/graphql'. We are left with 2 choices.
+If you have worked with REST API, imo it is a bit easier to implement both of the functionalities. We can just create a middleware and apply the same middleware to each of the routes(_get_ requests) that we either want to authenticate or on top of that authorize. But how will we implement that in graphql ? We have only a single
+route _http://your-host-url/graphql_. We are left with 2 choices.
 
-1. Either attach a special property to each incoming request and then check in each of the resolver
-   functions(users, posts, comments, likes) weather the resolver should fulfill the request or not!
-2. Attatch custom resolver directly to each of our query , mutation or type definations in our graphql
-   schema. Each custom resolver will have a seperate implementation logic where it will be checked weather
-   the request should even reach the resolver or not?
+1. Either attach a special property to each incoming request and then check in each of the resolver functions(users, posts, comments, likes etc) weather the resolver should fulfill the request or not!
+2. Attatch custom resolver directly to each of our query , mutation or type definations in our graphql schema. Each custom resolver will have a seperate implementation logic where it will be checked weather the request should even reach the resolver or not?
 
-Now both the methods can be used. But personally I would prefer to go with second one. I think this is
-a good approach because this approach has quite a lot of benefits. The most visible ones are:
+Now both the methods can be used. But personally I would prefer to go with second one. I think this is a good approach because this approach has quite a lot of benefits. The most visible ones are:
 
 1. Code becomes much more modular. Write less code with same functionality!
-2. Attatching a special property to each incoming request and then check where request should be
-   fullfilled or not inside the resolver is cumbersome. As you can imagine when projects become larger, the resolvers
-   will also increase. Managing logic for authentication/authorisation becomes really tedious and it may happen that
+2. Attatching a special property to each incoming request and then check where request should be fullfilled or not inside the resolver is cumbersome. As you can imagine when projects become larger, the resolvers will also increase. Managing logic for authentication/authorisation becomes really tedious and it may happen that
    you may forget adding this logic in some resolvers. The first approach is good enough for smaller projects.
-3. Proved a REST like architecture. It kind of takes a middleware approach very similar to REST as you will
-   see in a bit.
+3. Provides a REST like architecture. It kind of takes a middleware approach very similar to REST as you will see in a bit.
 
 ### Installing graphql-directive package
 
-If you havent already, download the graphql-directive package.
+If you haven't already, download the [graphql-directive](https://www.npmjs.com/package/graphql-directive) package.
 
 ```cmd
 yarn add graphql-directive
@@ -55,24 +42,38 @@ yarn add graphql-directive
 npm i graphql-directive
 ```
 
-<Note
-  note=" please not the version number for 'graphql' package and to specifically use this one
-as I was having a couple of problems with newer version of 'graphql' package.
-'graphql': '14.6.0'"
-/>
+👉 Please note the version number for 'graphql' package and to specifically use _14.6.0_ as I was having a couple of problems with newer version of graphql package.
 
 ### Adding types for graphql-directive package
 
-Since no type are available for graphql-directive package that we installed, we create a graphql-directive.d.ts file in the root
-with content as follows:
+Since no type are available for graphql-directive package that we installed, we create a graphql-directive.d.ts file in the root with content as follows:
 
 ```ts
 declare module "graphql-directive"
 ```
 
+### So, how does graphql-directive package works?
+
+To better understand take a carefull look at the following diagram:
+
+![custom-directive-workflow.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1627816869622/nqTdaeXTP.png)
+
+👉 I wanted to give you a heads up that we define the graphql context in the root index.ts file of our server where we initialize our graphql-server. We will also update our code to define the context in a little bit. To give you a preview how that will look, it would be like this:
+
+```
+app.use("/graphql", (req, res) => {
+  return graphqlHTTP({
+    schema: schema,
+    rootValue: rootResolver,
+    graphiql: true,
+    context: { req, res }, // we pass context here which will be received by aur directive resolvers
+  })(req, res)
+})
+```
+
 ### Adding graphql-directive resolvers
 
-folder structure is as follows:
+Folder structure for adding directives will be as follows:
 
 ```
 -src
@@ -169,11 +170,35 @@ export const upperCase = async (
 }
 ```
 
-<Note
-  note="Note that @hasAuthorisation directive also covers the logic for @isAuthenticated. So while using 
-the @hasAuthorisation directive, even if the user is the correctly authorised one, if user is not authenticated or 
-as I should say the request header is empty, graphql will give error message of --not authenticated "
-/>
+In the above custom directive resolvers, we are creating an asynchronous function that takes 5 arguments:
+
+1. resolve
+2. directiveArgs
+3. obj
+4. context
+5. info
+
+So what do they all mean? I will copy a part of documentation written in the [graphql-directive npm package](https://www.npmjs.com/package/graphql-directive) below that exactly describes what all of these mean. But what I would suggest is logging out each of these in your console to see what output each of them give.
+
+1. **resolve**: Resolve is a function that returns the result of the directive field. For consistency, it always returns a promise resolved with the original field resolver.
+
+2. **obj**: The object that contains the result returned from the resolver on the parent field, or, in the case of a top-level Query field, the rootValue passed from the server configuration. This argument enables the nested nature of GraphQL queries.
+
+3. **directiveArgs**: An object with the arguments passed into the directive in the query or schema. For example, if the directive was called with @dateFormat(format: "DD/MM/YYYY"), the args object would be: { "format": "DD/MM/YYYY" }.
+
+4. **context**: This is an object shared by all resolvers in a particular query, and is used to contain per-request state, including authentication information, [dataloader ](https://github.com/graphql/dataloader) instances, and anything else that should be taken into account when resolving the query.
+
+5. **info**: This argument should only be used in advanced cases, but it contains information about the execution state of the query, including the field name, path to the field from the root, and more. It’s only documented in the [GraphQL.js source code](https://github.com/graphql/graphql-js/blob/c82ff68f52722c20f10da69c9e50a030a1f218ae/src/type/definition.js#L489-L500) .
+
+If you are not able to understand all of these arguments , then it's all fine because we will be using only 3 of these which are _resolve _, *obj *and _context_
+
+In *upperCase *resolver we execute resolve() function and we receive the input value which needs to be converted into upperCase word.
+
+*context *argument is an object that has all the properties that we passed earlier from our root index.ts file.
+
+*obj *argument is an object that consists of all properties specified with the directive in our graphql schema. For eg. below in the schema where we declare our directives, with _@hasAuthorisation_ directive , we use roles property as '@hasAuthorisation(roles: [ADMIN])' where roles is an array and can consist of multiple roles to check from like ADMIN , MODERATOR etc. we can then access roles through _obj_ argument like _obj.roles_!
+
+👉 Note that _@hasAuthorisation_ directive also covers the logic for _@isAuthenticated_. So while using the _@hasAuthorisation_ directive, even if the user is the correctly authorised one, if user is not authenticated or as I should say the request header is empty with no Authorization token , graphql will give error message of _not authenticated!_
 
 ```ts
 /* ../graphql/directives/index.ts*/
@@ -182,12 +207,9 @@ export * from "./isAuthenticated"
 export * from "./upperCase"
 ```
 
-<Checkpoint
-  checkpoint="The code till now can be found here"
-  repoLink="https://github.com/pineapple45/custom-directives-with-express-graphql/tree/all-directive-resolvers-part-3"
-/>
+📌 The code till now can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/all-directive-resolvers-part-3)
 
-### updating graphql-schema file to handle custom directives
+### Updating graphql-schema file to handle custom directives
 
 ```ts
 import { buildSchema } from "graphql"
@@ -196,9 +218,9 @@ import { upperCase, isAuthenticated, hasAuthorisation } from "../directives"
 
 const schema = buildSchema(`
 
-directive @upperCase on FIELD_DEFINITION | FIELD
-directive @isAuthenticated on FIELD_DEFINITION | FIELD
-directive @hasAuthorisation(roles: [Role!]) on FIELD_DEFINITION | FIELD
+directive *@upperCase* on FIELD_DEFINITION | FIELD
+directive *@isAuthenticated* on FIELD_DEFINITION | FIELD
+directive *@hasAuthorisation(roles: [Role!])* on FIELD_DEFINITION | FIELD
 
 input PostInput {
     image: String
@@ -309,7 +331,7 @@ addDirectiveResolveFunctionsToSchema(schema, {
 export default schema
 ```
 
-### updating entry src/index.ts file to pass graphql context to each of the directive-resolvers
+### Updating entry src/index.ts file to pass graphql context to each of the directive-resolvers
 
 ```ts
 import * as dotenv from "dotenv"
@@ -363,68 +385,39 @@ mongoose
   })
 ```
 
-<Checkpoint
-  checkpoint="The code till now can be found here"
-  repoLink="https://github.com/pineapple45/custom-directives-with-express-graphql/tree/full-directives-implementation-part-3"
-/>
+📌 The code till now can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/full-directives-implementation-part-3)
 
-Now let's test our custom directives. If you take a look at the updated schema, we have out directives placed
-at a few different places.
+Now let's test our custom directives. If you take a look at the updated schema, we have our directives placed at a few different places.
 
-As told above in the note, @hasAuthorisation directive also covers the logic for @isAuthenticated directive.
-We will test the @hasAuthorisation for both authentication and authorisation.
+As told above in the note, _@hasAuthorisation_ directive also covers the logic for _@isAuthenticated_ directive. We will test the _@hasAuthorisation_ for both authentication and authorization.
 
-<Note
-  note="We cannot use graphiql tool for testing these directives since we need to pass headers along with
-our requests which we want to be either authorised or authenticated. So we will use POSTMAN tool for this purpose.
-The syntex for setting up queries in POSTMAN is a bit weird, So watch the video below carefully! "
-/>
+👉 We cannot use graphiql tool for testing these directives since we need to pass headers along with our requests which we want to be either authorized or authenticated. So we will use POSTMAN tool for this purpose.The syntax for setting up queries in POSTMAN is a bit weird, So watch the video below carefully!
 
-#### Testing the @isAuthenticated & @hasAuthorisation directive
+#### Testing the _@isAuthenticated_ & _@hasAuthorisation_ directive
 
-First we will send no headers.We will try to list all users. In this case we should get **you are unauthenticated** error message as specified in our
-@hasAuthorisation and @isAuthenticated custom-directive resolvers.
+First we will send no headers. We will try to list all users. In this case we should get **you are unauthenticated** error message as specified in our
+_@hasAuthorisation_ and _@isAuthenticated_ custom-directive resolvers.
 
-<Video
-  videoSrcURL="https://drive.google.com/file/d/1ErVDtA_o92ZJoc9h_Ub7CoC5lEONl3_s/preview"
-  title="@isAuthenticated-@hasAuthorisation"
-/>
+%[https://youtu.be/aE_Kgs4M2VI]
 
-We get **you are unauthenticated** which means @isAuthenticated directive is correctly setup. It also means
-that @hasAuthorisation directive is also correctly setup as long as authentication is concerned.
+We get **you are unauthenticated** which means _@isAuthenticated_ directive is correctly setup. It also means that _@hasAuthorisation_ directive is also correctly setup as long as authentication is concerned!
 
-#### Testing @hasAuthorisation directive
+#### Testing _@hasAuthorisation_ directive
 
-Now we will take care of authorisation part in @hasAuthorisation. First we will log in. We get the Json Web Token.
-Then we use the token and send it along the header and then our custom directive resolver handles authorisation. We currently have no user who is an
-ADMIN or MODERATOR. So as per the schema and custom directives defined in it, if we try to get a list of all
-users, we should get **Not Authorised**.
+Now we will take care of authorization part in _@hasAuthorisation_. First we will log in. We get the JSON Web Token. Then we use the token and send it along the header and then our custom directive resolver handles authorization. We currently have no user who is an ADMIN or MODERATOR. So as per the schema and custom directives defined in it, if we try to get a list of all users, we should get **Not Authorised**.
 
-<Video
-  videoSrcURL="https://drive.google.com/file/d/1-GuqF2QQPC2N4V0ZknYwmuynvwxPn70F/preview"
-  title="@hasAuthorisation"
-/>
+%[https://youtu.be/OQn_McPi9II]
 
-#### Testing the @upperCase directive
+#### Testing the _@upperCase_ directive
 
-Now to test @upperCase directive, we need to get the list of all users since each username has to be shown in
-uppercase as per our graphql schema. User's list can only be retrieved by an ADMIN. So I will manually
-update the user role of any one of the user's in our mongodb database to ADMIN. Lets update role of **john doe** token
-ADMIN:
+Now to test _@upperCase_ directive, we need to get the list of all users since each username has to be shown in uppercase as per our graphql schema. User's list can only be retrieved by an ADMIN. So I will manually update the user role of any one of the user's in our mongodb database to ADMIN. Lets update role of **john doe** to ADMIN:
 
-<Video
-  videoSrcURL="https://drive.google.com/file/d/1JuIr-cC6LL5C07_NsToe2zZ5rebTpJKY/preview"
-  title="@update_role_to_ADMIN"
-/>
+%[https://youtu.be/CmN-K6PW6PQ]
 
-Now since role of user **john doe** is updated to ADMIN, john should be able to retrieve the list of users
-successfully. We should also get usernames in uppercase which will confirm that our @upperCase directive is
-working fine:
+Now since role of user **john doe** is updated to ADMIN, john should be able to retrieve the list of users successfully. We should also get usernames in uppercase which will confirm that our _@upperCase_ directive is working fine:
 
-<Video
-  videoSrcURL="https://drive.google.com/file/d/1SqXxogME15UbnyfSZKGkkDcMARAToyXD/preview"
-  title="@upperCase"
-/>
+%[https://youtu.be/ThL55acCKNs]
+
 So finally we get the response that we were looking for and hence this confirms that
 our custom directives are working as they should....🎉🎉🎉🎉🎉
 
@@ -655,11 +648,24 @@ export default schema
 
 I will leave the original schema in a reference.ts file so as to later reference in case needed.
 
-<Checkpoint
-  checkpoint="The code till now can be found here"
-  repoLink="https://github.com/pineapple45/custom-directives-with-express-graphql/tree/schema-splitting-part-3"
-/>
+📌 The code till now can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/schema-splitting-part-3)
 
-### final points
+### React App frontend setup
 
-<Gif gifUrl="https://media.giphy.com/media/3otPoS81loriI9sO8o/giphy.gif" />
+I am using React as my frontend frameworks but you can easily use any other frontend framework such as Angular or svelte. Few other technologies that I am using on my frontend are:
+
+- [@apollo/client](https://www.npmjs.com/package/@apollo/client)
+- [Material-UI](https://www.npmjs.com/package/@material-ui/core)
+- [Typescript](https://www.npmjs.com/package/typescript)
+
+👉 Note: In the final code repository there is a client-redux folder which also consists of frontend with client graphql implementation using redux. Although , it is important to note that, functionalities such live as refetching of queries , implementaion of custom fetch and error policies is not implemented in this project.
+
+📍 Final code: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/main)
+
+🌐 Live preview: [Link](https://pineapple45.github.io/custom-directives-with-express-graphql/)
+
+### Final points
+
+Hope you learnt something useful from this project. In case any queries or doubts, you can comment down below and I will try to resolve them as much as I can. You can also join my [discord channel](https://discord.gg/cDyttEtkcJ) if you want to reach out to me.
+
+%[https://media.giphy.com/media/3otPoS81loriI9sO8o/giphy.gif]
