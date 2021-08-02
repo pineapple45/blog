@@ -6,6 +6,8 @@ featureImage: feature.jpg
 excerpt: Adding graphql schema and resolvers.
 ---
 
+import Video from "../../components/Video.js"
+
 ### Defining graphql schema
 
 We defined simple structure for our photos app in [part-1](/custom-directives-with-express-graphql-part-1) of this blog.
@@ -402,7 +404,10 @@ mongoose
 Start the project and go to [http://localhost:4000/graphql](http://localhost:4000/graphql). This is the playground where we will test our queries
 and mutations. Later I will add a proper frontend using react-js. Let's test also with the queries and mutations that I have already written:
 
-%[https://youtu.be/MGOpckT-1yI]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/MGOpckT-1yI"
+  videoTitle="https://www.youtube.com/embed/MGOpckT-1yI"
+/>
 
 After running the createUser mutation above we have a user in our mongodb database as below:
 
@@ -488,18 +493,27 @@ export const assignRole = async (args: {
 
 First let's test listUsers and getUserById:
 
-%[https://youtu.be/sZG5MwmWHng]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/sZG5MwmWHng"
+  videoTitle="https://www.youtube.com/embed/sZG5MwmWHng"
+/>
 
 👉 Note that for now there is no authorisation. Anyone can authorize any role to anyone. Also in case of posts and comments, anyone can create posts or add comments. We will take care of authorization in part-3
 
 Now Let's assign a new role to a user. I create a new user with the name of jane doe. We will assign a role of MODERATOR to jane doe. For now let's assume John doe was already an ADMIN. Later we will add authorization logic to check weather a person
 assigning a role to someone himself is ADMIN or not!
 
-%[https://youtu.be/abewZfGDk3w]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/abewZfGDk3w"
+  videoTitle="https://www.youtube.com/embed/abewZfGDk3w"
+/>
 
 Now finally let's delete a user. Let's delete Jane Doe:
 
-%[https://youtu.be/wZCT2SW9_SA]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/wZCT2SW9_SA"
+  videoTitle="https://www.youtube.com/embed/wZCT2SW9_SA"
+/>
 
 Seems like, all of our user resolvers works till now!😃
 
@@ -661,7 +675,10 @@ export default rootResolver
 
 Now we test the post resolvers. Let's say John Doe was creating, listing and deleting a few posts. Again assuming he is an ADMIN for now, he can do such operations.
 
-%[https://youtu.be/c_y7KCV-m6g]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/c_y7KCV-m6g"
+  videoTitle="https://www.youtube.com/embed/c_y7KCV-m6g"
+/>
 
 👉 Do notice that now we can also fetch the details of the user who created a post since we have already created all resolvers related to users. Similary when we create resolvers of comments and likes, we will also be able to fetch all comments and likes associated with each of the posts. Similar relationship will also be there for comments and likes. For eg. we will be able to fetch each like and the corrosponding user who created the like as well as the post on which like was added. You can imagine such nesting will keep on happening. Over here the power of graphql begins to shine!
 
@@ -852,7 +869,10 @@ export default rootResolver
 Now let's test the comments resolver. For this I have already created 2 new users and 2 new posts. Then I will add
 1 comment to each of the posts.
 
-%[https://youtu.be/6vYQklS8b3A]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/6vYQklS8b3A"
+  videoTitle="https://www.youtube.com/embed/6vYQklS8b3A"
+/>
 
 📌The code till now can be found here: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/all-comments-resolvers-part-2)
 

@@ -6,6 +6,8 @@ featureImage: feature.jpg
 excerpt: Adding custom directives using express-graphql and graphql-directive.
 ---
 
+import Video from "../../components/Video.js"
+
 Till now we have the application structure fully setup. If you are directly coming over here to part 3 , I am assuming you have the base structure of your app completed, which includes setting up the express-graphql server , graphql-schema and corrosponding resolvers. If you haven't I highly recommend checking out part-1 and part-2. Otherwise, let's start!
 
 📍 Final code: [Link](https://github.com/pineapple45/custom-directives-with-express-graphql/tree/main)
@@ -400,7 +402,10 @@ As told above in the note, _@hasAuthorisation_ directive also covers the logic f
 First we will send no headers. We will try to list all users. In this case we should get **you are unauthenticated** error message as specified in our
 _@hasAuthorisation_ and _@isAuthenticated_ custom-directive resolvers.
 
-%[https://youtu.be/aE_Kgs4M2VI]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/aE_Kgs4M2VI"
+  videoTitle="https://www.youtube.com/embed/aE_Kgs4M2VI"
+/>
 
 We get **you are unauthenticated** which means _@isAuthenticated_ directive is correctly setup. It also means that _@hasAuthorisation_ directive is also correctly setup as long as authentication is concerned!
 
@@ -408,17 +413,26 @@ We get **you are unauthenticated** which means _@isAuthenticated_ directive is c
 
 Now we will take care of authorization part in _@hasAuthorisation_. First we will log in. We get the JSON Web Token. Then we use the token and send it along the header and then our custom directive resolver handles authorization. We currently have no user who is an ADMIN or MODERATOR. So as per the schema and custom directives defined in it, if we try to get a list of all users, we should get **Not Authorised**.
 
-%[https://youtu.be/OQn_McPi9II]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/OQn_McPi9II"
+  videoTitle="https://www.youtube.com/embed/OQn_McPi9II"
+/>
 
 #### Testing the _@upperCase_ directive
 
 Now to test _@upperCase_ directive, we need to get the list of all users since each username has to be shown in uppercase as per our graphql schema. User's list can only be retrieved by an ADMIN. So I will manually update the user role of any one of the user's in our mongodb database to ADMIN. Lets update role of **john doe** to ADMIN:
 
-%[https://youtu.be/CmN-K6PW6PQ]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/CmN-K6PW6PQ"
+  videoTitle="https://www.youtube.com/embed/CmN-K6PW6PQ"
+/>
 
 Now since role of user **john doe** is updated to ADMIN, john should be able to retrieve the list of users successfully. We should also get usernames in uppercase which will confirm that our _@upperCase_ directive is working fine:
 
-%[https://youtu.be/ThL55acCKNs]
+<Video
+  videoSrcURL="https://www.youtube.com/embed/ThL55acCKNs"
+  videoTitle="https://www.youtube.com/embed/ThL55acCKNs"
+/>
 
 So finally we get the response that we were looking for and hence this confirms that
 our custom directives are working as they should....🎉🎉🎉🎉🎉
@@ -670,4 +684,4 @@ I am using React as my frontend frameworks but you can easily use any other fron
 
 Hope you learnt something useful from this project. In case any queries or doubts, you can comment down below and I will try to resolve them as much as I can. You can also join my [discord channel](https://discord.gg/cDyttEtkcJ) if you want to reach out to me.
 
-%[https://media.giphy.com/media/3otPoS81loriI9sO8o/giphy.gif]
+![https://media.giphy.com/media/3otPoS81loriI9sO8o/giphy.gif](https://media.giphy.com/media/3otPoS81loriI9sO8o/giphy.gif)

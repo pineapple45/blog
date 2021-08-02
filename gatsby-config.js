@@ -3,7 +3,7 @@ module.exports = {
     title: "ShadedVoxels Blog",
     description:
       "Blog for topics on Machine Learning, Deep Learning , web developement and much more..",
-    siteUrl: "https://pineapple45.github.io/blog",
+    siteUrl: "https://shadedvoxels.com/",
     image: "./default.jpg",
     twitterUsername: "@Anmol_gomra",
     author: "pineapple45",
