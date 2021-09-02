@@ -9,6 +9,10 @@ const useStyles = makeStyles(theme => ({
       justifyContent: "center",
     },
   },
+  navItems: {
+    fontSize: "20px",
+    paddingInline: "8px",
+  },
 }))
 
 const NavBar = () => {
@@ -34,14 +38,13 @@ const NavBar = () => {
         </Grid>
         <Grid item xs={12} md={4}>
           <Box display="flex" justifyContent="center">
-            <Typography
-              variant="h6"
-              component="h6"
-              style={{ marginRight: "20px" }}
-            >
+            <Typography variant="h6" component="p" className={classes.navItems}>
               <Link to="/">Home</Link>
             </Typography>
-            <Typography variant="h6" component="h6">
+            <Typography variant="h6" component="p" className={classes.navItems}>
+              <Link to="/projects">My-Projects</Link>
+            </Typography>
+            <Typography variant="h6" component="p" className={classes.navItems}>
               <Link to="/about">About</Link>
             </Typography>
           </Box>

@@ -4,7 +4,10 @@ const path = require("path")
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { data, errors } = await graphql(`
     query {
-      allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+      allMdx(
+        sort: { fields: frontmatter___date, order: DESC }
+        filter: { fileAbsolutePath: { regex: "/posts/" } }
+      ) {
         edges {
           node {
             frontmatter {

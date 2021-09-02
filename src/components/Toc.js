@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme =>
       },
       [theme.breakpoints.up("xl")]: {
         position: "fixed",
-        right: "10rem",
+        right: "3rem",
         top: "32vh",
         width: "15rem",
         maxWidth: "15rem",
@@ -61,7 +61,7 @@ export default ({ tableOfContents }) => {
       <hr />
       <ol className={classes.list}>
         {tableOfContents.items.map((content, index) => (
-          <li className={classes.listItems} key={index} disableGutters>
+          <li className={classes.listItems} key={index} disablegutters="true">
             <Typography component="h4" style={{ padding: "5px" }}>
               <Link className={classes.link} to={content.url}>
                 {content.title}

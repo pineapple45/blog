@@ -1,17 +1,53 @@
 import React from "react"
 import Layout from "../components/Layout"
-import { Grid, Typography, Box, Paper, Link } from "@material-ui/core"
-import { Icon, InlineIcon } from "@iconify/react"
+import {
+  Grid,
+  Typography,
+  Box,
+  Avatar,
+  Link,
+  makeStyles,
+  createStyles,
+  Divider,
+} from "@material-ui/core"
+import { Icon } from "@iconify/react"
 import discordIcon from "@iconify-icons/bi/discord"
 import twitterIcon from "@iconify-icons/bi/twitter"
 import githubFill from "@iconify-icons/akar-icons/github-fill"
 
-const about = () => {
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+      margin: "20px 0",
+    },
+    profileAvatar: {
+      width: theme.spacing(18),
+      height: theme.spacing(18),
+    },
+  })
+)
+
+const About = () => {
+  const styles = useStyles()
+
   return (
     <Layout>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={8}>
-          <Paper style={{ padding: "10px" }}>
+        <Grid item xs={12}>
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="center"
+          >
+            <Box marginBottom="50px">
+              <Avatar
+                alt="Profile pic"
+                src="https://avatars.githubusercontent.com/u/50433033?s=200&v=4"
+                className={styles.profileAvatar}
+              />
+            </Box>
             <Typography variant="body1" component="p">
               Hey, glad to see you here! My name is Anmol. I am a student at IIT
               Indore , India currently pursuing computer science engineering.
@@ -24,23 +60,15 @@ const about = () => {
               in general have a few discussions regarding my blog etc, do join
               my discord channel (shadedvoxels) whose link is given below! :))
             </Typography>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper
-            style={{ width: "200px", height: "200px", overflow: "hidden" }}
-          >
-            <img
-              src="https://avatars.githubusercontent.com/u/50433033?s=200&v=4"
-              alt="profile-avatar"
-            />
-          </Paper>
+          </Box>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Paper style={{ padding: "10px" }}>
+          <Box style={{ padding: "10px" }}>
             <Typography variant="h6" component="h6">
               Social Links
             </Typography>
+
+            <Divider />
             <br />
             <Box
               display="flex"
@@ -108,11 +136,11 @@ const about = () => {
                 </Link>
               </Typography>
             </Box>
-          </Paper>
+          </Box>
         </Grid>
       </Grid>
     </Layout>
   )
 }
 
-export default about
+export default About

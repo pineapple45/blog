@@ -20,7 +20,7 @@ const Layout = ({ children }) => {
         <Grid item xs={11} sm={10} md={8}>
           <NavBar />
         </Grid>
-        <Grid item xs={11} sm={10} md={6}>
+        <Grid item xs={11} sm={10} md={7}>
           {children}
         </Grid>
         <Grid item xs={11} sm={10} md={8}>
