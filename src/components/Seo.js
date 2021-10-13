@@ -22,7 +22,10 @@ const Seo = ({ description, keywords, title, image, url, author }) => {
 
         return (
           <Helmet
-            title={title}
+            title={metaTitle}
+            htmlAttributes={{
+              lang: "en",
+            }}
             meta={[
               {
                 name: `google-site-verification`,

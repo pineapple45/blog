@@ -14,6 +14,7 @@ import { Icon } from "@iconify/react"
 import discordIcon from "@iconify-icons/bi/discord"
 import twitterIcon from "@iconify-icons/bi/twitter"
 import githubFill from "@iconify-icons/akar-icons/github-fill"
+import Seo from "../components/Seo"
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -33,6 +34,7 @@ const About = () => {
 
   return (
     <Layout>
+      <Seo title="About" description="Site owner information" />
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Box

@@ -4,6 +4,7 @@ import Layout from "../components/Layout"
 import Container from "@material-ui/core/Container"
 import Masonry from "react-masonry-css"
 import ProjectCard from "../components/ProjectCard"
+import Seo from "../components/Seo"
 
 const Projects = ({ data }) => {
   const breakpoints = {
@@ -14,6 +15,10 @@ const Projects = ({ data }) => {
 
   return (
     <Layout>
+      <Seo
+        title="My projects"
+        description="List of all projects created by owner of the website"
+      />
       <Container>
         <Masonry
           breakpointCols={breakpoints}

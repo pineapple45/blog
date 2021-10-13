@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "ShadedVoxels Blog",
+    title: "ShadedVoxels",
     description:
       "Blog for topics on Machine Learning, Deep Learning , web developement and much more..",
     siteUrl: "https://shadedvoxels.com/",
