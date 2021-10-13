@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme =>
   })
 )
 
-export default ({ tableOfContents }) => {
+const Toc = ({ tableOfContents }) => {
   const classes = useStyles()
   return (
     <Box className={classes.root}>
@@ -73,3 +73,5 @@ export default ({ tableOfContents }) => {
     </Box>
   )
 }
+
+export default Toc

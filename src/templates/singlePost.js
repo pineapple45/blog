@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Box, Typography } from "@material-ui/core"
+import { Typography } from "@material-ui/core"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import Image from "../components/Image"
 import Layout from "../components/Layout"
@@ -46,7 +46,11 @@ const singlePost = ({ pageContext, data }) => {
         😊
       </Typography>
       <br />
-      <a href="https://www.buymeacoffee.com/pineapple45" target="_blank">
+      <a
+        href="https://www.buymeacoffee.com/pineapple45"
+        target="_blank"
+        rel="noreferrer"
+      >
         <img
           src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png"
           alt="Buy Me A Coffee"

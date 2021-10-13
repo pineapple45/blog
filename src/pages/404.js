@@ -13,6 +13,7 @@ const Page404 = () => {
     >
       <img
         src={zigZag}
+        alt="zigzag-image"
         width="50px"
         style={{
           position: "fixed",
@@ -31,6 +32,7 @@ const Page404 = () => {
         <Grid item xs={10} md={10}>
           <img
             src={`https://robohash.org/${Math.random()}`}
+            alt="robo-error-image"
             style={{ display: "block", margin: "auto" }}
           ></img>
         </Grid>

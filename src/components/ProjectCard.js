@@ -2,7 +2,6 @@ import React from "react"
 import Card from "@material-ui/core/Card"
 import CardHeader from "@material-ui/core/CardHeader"
 import CardContent from "@material-ui/core/CardContent"
-import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import { Box, makeStyles, createStyles } from "@material-ui/core"
 import Avatar from "@material-ui/core/Avatar"
@@ -14,13 +13,13 @@ const useStyles = makeStyles(theme =>
   createStyles({
     avatar: {
       backgroundColor: project => {
-        if (project.category == "Web developement") {
+        if (project.category === "Web developement") {
           return yellow[700]
         }
-        if (project.category == "Machine learning") {
+        if (project.category === "Machine learning") {
           return green[500]
         }
-        if (project.category == "Cloud Computing") {
+        if (project.category === "Cloud Computing") {
           return pink[500]
         }
         return blue[500]

@@ -1,6 +1,6 @@
 import React from "react"
 import { Box, Link, Typography } from "@material-ui/core"
-import { Icon, InlineIcon } from "@iconify/react"
+import { Icon } from "@iconify/react"
 import discordIcon from "@iconify-icons/bi/discord"
 import twitterIcon from "@iconify-icons/bi/twitter"
 import githubFill from "@iconify-icons/akar-icons/github-fill"
